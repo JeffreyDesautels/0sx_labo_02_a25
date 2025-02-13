@@ -1,4 +1,4 @@
-//Mon code etudiant = 2255309
+//code = 2255309
 
 unsigned long current_time = 0;
 const int led_pins[] = {8, 9, 10, 11};
@@ -65,17 +65,22 @@ void btn_task(int cv) {
     last_change = millis();
   }
 
-  if((millis() - last_change) > delay) {
+  if ((millis() - last_change) > delay) {
     if (current_state != state) {
-      state = current_state;
-      Serial.print("[");
-      for (int i = 0; i < width; i++) {
-        if (i < filling) Serial.print("#");
-        else Serial.print(".");
+      if (!current_state) {
+        Serial.print("[");
+        for (int i = 0; i < width; i++) {
+          if (i < filling) {
+            Serial.print("#");
+          } else {
+            Serial.print(".");
+          }
+        }
+        Serial.print("] ");
+        Serial.print(cv * 5);
+        Serial.println("%");
       }
-      Serial.print("] ");
-      Serial.print(cv * 5);
-      Serial.println("%");
+      state = current_state;
     }
   }
 
