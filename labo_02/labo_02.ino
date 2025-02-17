@@ -29,12 +29,11 @@ void loop() {
 }
 
 void btn_task(int cv) {
-  static int previous_state = 0;
+  static int previous_state = 1;
   static int current_state = 0;
   static int state = 0;
   const int delay = 50;
   const int width = 20;
-  int filling = ((cv * 5) * width) / 100;
 
   static unsigned long last_change = 0;
 
@@ -49,7 +48,7 @@ void btn_task(int cv) {
       if (!current_state) {
         Serial.print("[");
         for (int i = 0; i < width; i++) {
-          if (i < filling) {
+          if (i < cv) {
             Serial.print("#");
           } else {
             Serial.print(".");
